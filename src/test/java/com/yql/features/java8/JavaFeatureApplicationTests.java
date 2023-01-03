@@ -8,6 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 
+/**
+ * @Package com.yql.feature.java8
+ * @ClassName JavaFeatureApplicationTests
+ * @Description TODO
+ * @Author Ryan
+ * @Date 2023/1/3
+ */
 @SpringBootTest
 class JavaFeatureApplicationTests {
     @Autowired

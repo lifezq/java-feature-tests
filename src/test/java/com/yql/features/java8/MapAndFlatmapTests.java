@@ -10,6 +10,13 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * @Package com.yql.feature.java8
+ * @ClassName MapAndFlatmapTests
+ * @Description TODO
+ * @Author Ryan
+ * @Date 2023/1/3
+ */
 public class MapAndFlatmapTests {
 
     @Test

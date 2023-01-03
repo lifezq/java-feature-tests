@@ -7,8 +7,8 @@ import java.time.LocalDateTime;
 import java.util.Random;
 
 /**
- * @Package com.yql.features.java11.service
- * @ClassName weatherService
+ * @Package com.yql.features.java8.service
+ * @ClassName WeatherService
  * @Description TODO
  * @Author Ryan
  * @Date 1/3/2023

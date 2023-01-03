@@ -7,7 +7,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 /**
- * @Package com.yql.features.java11.service
+ * @Package com.yql.features.java8.service
  * @ClassName UserService
  * @Description TODO
  * @Author Ryan
