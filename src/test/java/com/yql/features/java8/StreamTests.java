@@ -1,4 +1,4 @@
-package com.yql.feature.java8;
+package com.yql.features.java8;
 
 import org.junit.jupiter.api.Test;
 
