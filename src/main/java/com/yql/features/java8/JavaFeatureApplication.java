@@ -1,13 +1,13 @@
-package com.yql.features.java11;
+package com.yql.features.java8;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class JavaFeatureTestsApplication {
+public class JavaFeatureApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(JavaFeatureTestsApplication.class, args);
+        SpringApplication.run(JavaFeatureApplication.class, args);
     }
 
 }

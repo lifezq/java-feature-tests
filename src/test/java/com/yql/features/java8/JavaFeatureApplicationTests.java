@@ -1,7 +1,7 @@
-package com.yql.features.java11;
+package com.yql.features.java8;
 
-import com.yql.features.java11.service.UserService;
-import com.yql.features.java11.service.WeatherService;
+import com.yql.features.java8.service.UserService;
+import com.yql.features.java8.service.WeatherService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 
 @SpringBootTest
-class JavaFeatureTestsApplicationTests {
+class JavaFeatureApplicationTests {
     @Autowired
     ApplicationContext context;
 
