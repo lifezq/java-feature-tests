@@ -3,6 +3,9 @@ package com.yql.features.java8;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
@@ -21,5 +24,13 @@ public class StreamTests {
                 .sorted()
                 .toArray();
         System.out.println(Arrays.toString(ints));
+    }
+
+    @Test
+    public void testStreamGroupingby() {
+        String input = "Basanta";
+        Map<String, Long> collect = Arrays.stream(input.split(""))
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+        System.out.println(collect);
     }
 }
