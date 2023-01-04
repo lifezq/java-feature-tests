@@ -1,9 +1,10 @@
 package com.yql.features.java8;
 
+import com.yql.features.java8.entity.Employee;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.Map;
+import java.util.*;
+import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -27,10 +28,26 @@ public class StreamTests {
     }
 
     @Test
-    public void testStreamGroupingby() {
+    public void testStreamGroupingBy() {
         String input = "Basanta";
         Map<String, Long> collect = Arrays.stream(input.split(""))
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
         System.out.println(collect);
+    }
+
+    @Test
+    public void testStreamComparator() {
+        List<Employee> employees = Arrays.asList(
+                new Employee(1L, "Wang Wu", "QA", 5000D),
+                new Employee(2L, "Zhang San", "QA", 6000D),
+                new Employee(3L, "Zhao Liu", "DEV", 3500D),
+                new Employee(4L, "Li Wei", "DEVOPS", 4500D),
+                new Employee(5L, "Li Wei", "DEV", 5500D)
+        );
+
+        Comparator<Employee> comparing = Comparator.comparing(Employee::getSalary);
+        Map<String, Optional<Employee>> employeeMap = employees.stream().collect(
+                Collectors.groupingBy(Employee::getDept, Collectors.reducing(BinaryOperator.maxBy(comparing))));
+        System.out.println(employeeMap);
     }
 }
