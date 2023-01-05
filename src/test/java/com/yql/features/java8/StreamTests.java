@@ -45,9 +45,28 @@ public class StreamTests {
                 new Employee(5L, "Li Wei", "DEV", 5500D)
         );
 
+        // approach 1
         Comparator<Employee> comparing = Comparator.comparing(Employee::getSalary);
         Map<String, Optional<Employee>> employeeMap = employees.stream().collect(
                 Collectors.groupingBy(Employee::getDept, Collectors.reducing(BinaryOperator.maxBy(comparing))));
         System.out.println(employeeMap);
+
+        // approach 2
+        Map<String, Employee> optionalMap = employees.stream().collect(
+                Collectors.groupingBy(Employee::getDept,
+                        Collectors.collectingAndThen(
+                                Collectors.maxBy(Comparator.comparingDouble(Employee::getSalary)),
+                                Optional::get
+                        )));
+        System.out.println(optionalMap);
+    }
+
+    @Test
+    public void testParallelStream() {
+        IntStream.rangeClosed(1, 10).forEach(
+                i -> System.out.println(Thread.currentThread().getName() + ":" + i));
+        System.out.println("==================================");
+        IntStream.rangeClosed(1, 10).parallel().forEach(
+                i -> System.out.println(Thread.currentThread().getName() + ":" + i));
     }
 }
