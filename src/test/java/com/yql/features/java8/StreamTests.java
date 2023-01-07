@@ -1,5 +1,6 @@
 package com.yql.features.java8;
 
+import com.yql.features.java8.database.EmployeeDatabase;
 import com.yql.features.java8.entity.Employee;
 import org.junit.jupiter.api.Test;
 
@@ -37,13 +38,7 @@ public class StreamTests {
 
     @Test
     public void testStreamComparator() {
-        List<Employee> employees = Arrays.asList(
-                new Employee(1L, "Wang Wu", "QA", 5000D),
-                new Employee(2L, "Zhang San", "QA", 6000D),
-                new Employee(3L, "Zhao Liu", "DEV", 3500D),
-                new Employee(4L, "Li Wei", "DEVOPS", 4500D),
-                new Employee(5L, "Li Wei", "DEV", 5500D)
-        );
+        List<Employee> employees = EmployeeDatabase.fetchAllEmployees();
 
         // approach 1
         Comparator<Employee> comparing = Comparator.comparing(Employee::getSalary);

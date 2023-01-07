@@ -1,5 +1,6 @@
 package com.yql.features.java8;
 
+import com.yql.features.java8.database.EmployeeDatabase;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -7,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.*;
 import java.util.function.IntPredicate;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
@@ -29,6 +31,54 @@ public class CompletableFutureTests {
     }
 
     @Test
+    public void testCompletableFutureApplyAndAccept() throws ExecutionException, InterruptedException {
+        CompletableFuture<Void> voidCompletableFuture = CompletableFuture.supplyAsync(() -> {
+            try {
+                System.out.println("sleep for supply");
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return EmployeeDatabase.fetchAllEmployees();
+        })
+                .thenApply((employees) -> {
+                    System.out.println("filter running...");
+                    return employees.stream().filter(employee -> "DEV".equals(employee.getDept()))
+                            .collect(Collectors.toList());
+                })
+                .thenAccept(employees -> employees.forEach(System.out::println));
+
+        System.out.println("final process");
+        voidCompletableFuture.get();
+    }
+
+    @Test
+    public void testCompletableFutureApplyAndAcceptWithThreadPool() throws ExecutionException, InterruptedException {
+        ExecutorService executor = Executors.newFixedThreadPool(3);
+        CompletableFuture<Void> voidCompletableFuture = CompletableFuture.supplyAsync(() -> {
+            try {
+                System.out.println("Thread-" + Thread.currentThread().getName() + " sleep for supply");
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return EmployeeDatabase.fetchAllEmployees();
+        }, executor)
+                .thenApplyAsync((employees) -> {
+                    System.out.println("Thread-" + Thread.currentThread().getName() + " filter running...");
+                    return employees.stream().filter(employee -> "DEV".equals(employee.getDept()))
+                            .collect(Collectors.toList());
+                }, executor)
+                .thenAcceptAsync(employees -> {
+                    System.out.println("Thread-" + Thread.currentThread().getName() + " accept running...");
+                    employees.forEach(System.out::println);
+                }, executor);
+
+        System.out.println("final process");
+        voidCompletableFuture.get();
+    }
+
+    @Test
     public void testFuture() throws ExecutionException, InterruptedException {
         ExecutorService executorService = Executors.newFixedThreadPool(4);
 
@@ -43,6 +93,7 @@ public class CompletableFutureTests {
             return Arrays.asList(10, 343, 545, 32, 443, 54);
         });
 
+        @SuppressWarnings("unchecked")
         List<Integer> futureGets = (List<Integer>) future.get();
         System.out.println(futureGets);
     }
