@@ -32,15 +32,16 @@ public class CompletableFutureTests {
 
     @Test
     public void testCompletableFutureApplyAndAccept() throws ExecutionException, InterruptedException {
-        CompletableFuture<Void> voidCompletableFuture = CompletableFuture.supplyAsync(() -> {
-            try {
-                System.out.println("sleep for supply");
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            return EmployeeDatabase.fetchAllEmployees();
-        })
+        CompletableFuture<Void> voidCompletableFuture = CompletableFuture
+                .supplyAsync(() -> {
+                    try {
+                        System.out.println("sleep for supply");
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    return EmployeeDatabase.fetchAllEmployees();
+                })
                 .thenApply((employees) -> {
                     System.out.println("filter running...");
                     return employees.stream().filter(employee -> "DEV".equals(employee.getDept()))
@@ -55,15 +56,16 @@ public class CompletableFutureTests {
     @Test
     public void testCompletableFutureApplyAndAcceptWithThreadPool() throws ExecutionException, InterruptedException {
         ExecutorService executor = Executors.newFixedThreadPool(3);
-        CompletableFuture<Void> voidCompletableFuture = CompletableFuture.supplyAsync(() -> {
-            try {
-                System.out.println("Thread-" + Thread.currentThread().getName() + " sleep for supply");
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            return EmployeeDatabase.fetchAllEmployees();
-        }, executor)
+        CompletableFuture<Void> voidCompletableFuture = CompletableFuture
+                .supplyAsync(() -> {
+                    try {
+                        System.out.println("Thread-" + Thread.currentThread().getName() + " sleep for supply");
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    return EmployeeDatabase.fetchAllEmployees();
+                }, executor)
                 .thenApplyAsync((employees) -> {
                     System.out.println("Thread-" + Thread.currentThread().getName() + " filter running...");
                     return employees.stream().filter(employee -> "DEV".equals(employee.getDept()))
