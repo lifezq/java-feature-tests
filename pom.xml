@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.yql</groupId>
-    <artifactId>java-feature-tests</artifactId>
+    <artifactId>java-features</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>java-feature-tests</name>
+    <name>java-features</name>
     <description>Java feature test project for Spring Boot</description>
     <properties>
         <java.version>11</java.version>

@@ -1,1 +1,1 @@
-# java-feature-tests
+# java-features
